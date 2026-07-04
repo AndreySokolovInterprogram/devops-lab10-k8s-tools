@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: devops-course-2025
+    svc: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-course-2025
+      svc: db
+  template:
+    metadata:
+      labels:
+        app: devops-course-2025
+        svc: db
+    spec:
+      containers:
+      - name: redis
+        image: redis:alpine
+        ports:
+        - containerPort: 6379

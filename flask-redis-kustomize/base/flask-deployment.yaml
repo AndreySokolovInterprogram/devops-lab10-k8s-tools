@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  labels:
+    app: devops-course-2025
+    svc: flask-front
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: devops-course-2025
+      svc: flask-front
+  template:
+    metadata:
+      labels:
+        app: devops-course-2025
+        svc: flask-front
+    spec:
+      containers:
+      - name: flask
+        image: flask:v6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        env:
+        - name: REDIS_HOST
+          value: "redis"
+        - name: ENV
+          value: "BASE"
